@@ -17,6 +17,7 @@ if 'pcp' not in st.session_state:
 text = {'menu_home': {'en': 'Home', 'ru': 'Главная'},
          'menu_forecast': {'en': 'Forecast for today', 'ru': 'Прогноз на сегодня'},
          'menu_archive': {'en': 'Forecast history', 'ru': 'История прогнозов'},
+         'menu_about': {'en': 'About the project', 'ru': 'О проекте'},
          'header': {'en': 'Power consumption forecast for today', 'ru': 'Прогноз потребления электроэнергии на сегодня'},
         'preword': {'en': 'On this page you can predict power consumption in MWh for current date hour by hour',
                     'ru': 'На этой странице вы можете спрогнозировать энергопотребление в МВт*ч на текущую дату по часам'},
@@ -57,7 +58,8 @@ show_pages(
     [
         Page("Home.py", text['menu_home'][st.session_state['language']], "🏠"),
         Page("pages/1_Forecast.py", text['menu_forecast'][st.session_state['language']], ":chart_with_upwards_trend:"),
-        Page("pages/2_Archive.py", text['menu_archive'][st.session_state['language']], ":books:")
+        Page("pages/2_Archive.py", text['menu_archive'][st.session_state['language']], ":books:"),
+        Page("pages/3_About.py", text['menu_about'][st.session_state['language']], ":information_source:")
     ]
 )
 

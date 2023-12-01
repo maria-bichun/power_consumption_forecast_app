@@ -1,6 +1,6 @@
 #Load libraries needed
 import streamlit as st
-from st_pages import Page, show_pages, add_page_title
+from st_pages import Page, show_pages
 import base64
 from st_clickable_images import clickable_images
 from model.power_comsumption_predictor import PowerConsumptionPredictor
@@ -65,7 +65,8 @@ show_pages(
     [
         Page("Home.py", text['menu_home'][st.session_state['language']], "🏠"),
         Page("pages/1_Forecast.py", text['menu_forecast'][st.session_state['language']], ":chart_with_upwards_trend:"),
-        Page("pages/2_Archive.py", text['menu_archive'][st.session_state['language']], ":books:")
+        Page("pages/2_Archive.py", text['menu_archive'][st.session_state['language']], ":books:"),
+        Page("pages/3_About.py", text['menu_about'][st.session_state['language']], ":information_source:")
     ]
 )
 
@@ -84,4 +85,3 @@ with subheader_container:
     st.write(text['project_task'][st.session_state['language']])
     st.subheader(text['app_contents'][st.session_state['language']])
     st.markdown(text['bullets'][st.session_state['language']])
-

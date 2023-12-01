@@ -20,6 +20,7 @@ if 'show_prediction_message' not in st.session_state:
 text = {'menu_home': {'en': 'Home', 'ru': 'Главная'},
          'menu_forecast': {'en': 'Forecast for today', 'ru': 'Прогноз на сегодня'},
          'menu_archive': {'en': 'Forecast history', 'ru': 'История прогнозов'},
+         'menu_about': {'en': 'About the project', 'ru': 'О проекте'},
          'header': {'en': 'Forecast history', 'ru': 'История прогнозов'},
         'preword': {'en': 'On this page you can select dates, get forecast in MWh and compare it to real power consuption for the corresponding period',
                     'ru': 'На этой странице вы можете выбрать даты, получить для них прогноз в МВт*ч и сравнить его с реальным энергопотреблением за соответствующий период'},
@@ -35,7 +36,17 @@ text = {'menu_home': {'en': 'Home', 'ru': 'Главная'},
         'chart_var': {'en': 'Power Consumption, MWh', 'ru': 'Энергопотребление, МВт*ч'},
         'chart_pred': {'en': 'Forecast', 'ru': 'Прогноз'},
         'chart_fact': {'en': 'Fact', 'ru': 'Факт'},
-        'metrics': {'en': "Prediction quality metrics", 'ru': 'Метрики качества предсказания'}}
+        'metrics': {'en': "Prediction quality metrics", 'ru': 'Метрики качества предсказания'},
+        'metrics_comment': {'en': """
+MAE is Mean Absolute Error, average absolute value of the difference between the predicted target and the true one \n
+MAPE is Mean Average Percentage Error, it shows the error's ratio to the true target. It helps to estimate the quality without understanding scope of the data \n
+r2 is the determination coefficient. It determines the target's variance share explained by the model 
+                            """,
+                            'ru': """
+MAE (Mean Absolute Error) - средняя абсолютная ошибка. Это средний модуль разницы между предсказанным и истинным значениями целевой переменной \n
+MAPE (Mean Average Percentage Error) - средняя абсолютная ошибка в процентах. Показывает отношение ошибки к истинному значению целевой переменной. Помогает оценить качество прогноза без понимания масштаба данных \n
+r2 - коэффициент детерминации. Показывает долю дисперсии целевой переменной, объясненную моделью
+                            """}}
 
 with st.sidebar:
     images = []
@@ -60,7 +71,8 @@ show_pages(
     [
         Page("Home.py", text['menu_home'][st.session_state['language']], "🏠"),
         Page("pages/1_Forecast.py", text['menu_forecast'][st.session_state['language']], ":chart_with_upwards_trend:"),
-        Page("pages/2_Archive.py", text['menu_archive'][st.session_state['language']], ":books:")
+        Page("pages/2_Archive.py", text['menu_archive'][st.session_state['language']], ":books:"),
+        Page("pages/3_About.py", text['menu_about'][st.session_state['language']], ":information_source:")
     ]
 )
 
@@ -127,7 +139,8 @@ with prediction:
         st.markdown(f"""
                  * MAE = {metrics[0]:.4f}
                  * MAPE = {metrics[1]:.4f}
-                 * r2 = {metrics[2]:.4f}""")
+                 * r2 = {metrics[2]:.4f}""", help=text['metrics_comment'][st.session_state['language']])
+        # st.caption(text['metrics_comment'][st.session_state['language']])
         
 st.markdown(
     """
