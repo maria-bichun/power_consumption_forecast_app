@@ -4,11 +4,37 @@ name = "Home"
 icon = ":house:"
 
 [[pages]]
-path = "pages/1_Forecast.py"
-name = "Forecast"
-icon = ":chart_with_upwards_trend:"
+path = "Home_ru.py"
+name = "Главная"
+icon = ":house:"
 
 [[pages]]
 path = "pages/1_Forecast.py"
-name = "Прогноз"
+name = "Forecast for today"
 icon = ":chart_with_upwards_trend:"
+
+[[pages]]
+path = "pages/1_Forecast_ru.py"
+name = "Прогноз на сегодня"
+icon = ":chart_with_upwards_trend:"
+
+[[pages]]
+path = "pages/2_Archive.py"
+name = "Forecast history"
+icon = ":books:"
+
+[[pages]]
+path = "pages/2_Archive_ru.py"
+name = "История прогнозов"
+icon = ":books:"
+
+
+[[pages]]
+path = "pages/3_About.py"
+name = "About the project"
+icon = ":information_source:"
+
+[[pages]]
+path = "pages/3_About_ru.py"
+name = "О проекте"
+icon = ":information_source:"
