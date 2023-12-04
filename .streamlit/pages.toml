@@ -1,0 +1,14 @@
+[[pages]]
+path = "Home.py"
+name = "Home"
+icon = ":house:"
+
+[[pages]]
+path = "pages/1_Forecast.py"
+name = "Forecast"
+icon = ":chart_with_upwards_trend:"
+
+[[pages]]
+path = "pages/1_Forecast.py"
+name = "Прогноз"
+icon = ":chart_with_upwards_trend:"
