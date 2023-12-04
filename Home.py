@@ -1,6 +1,6 @@
 #Load libraries needed
 import streamlit as st
-from st_pages import Page, show_pages
+from st_pages import Page, show_pages, add_page_title
 import base64
 from st_clickable_images import clickable_images
 from model.power_comsumption_predictor import PowerConsumptionPredictor
@@ -69,6 +69,7 @@ show_pages(
         Page("pages/3_About.py", text['menu_about'][st.session_state['language']], ":information_source:")
     ]
 )
+add_page_title()
 
 # Add header
 header_container = st.container()

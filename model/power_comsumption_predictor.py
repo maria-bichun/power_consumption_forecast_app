@@ -8,9 +8,9 @@ warnings.filterwarnings("ignore")
 class PowerConsumptionPredictor():
     def __init__(self, df):
         #Get dataset
-        self.df = df
+        self.raw = df
         #add features
-        self.df = self.preprocess(self.df)
+        self.df = self.preprocess(self.raw)
         #Get predictor models
         with open("model/model1.pkl" , 'rb') as file:  
             self.lin_model = pickle.load(file)
