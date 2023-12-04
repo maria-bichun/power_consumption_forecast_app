@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 from st_pages import Page, show_pages, show_pages_from_config, hide_pages
 import base64
 import plotly.express as px
@@ -47,8 +48,40 @@ text = {'menu_home': {'en': 'Home', 'ru': 'Главная'},
          'subheader_plot': {'en': 'Target plot', 'ru': 'График целевой переменной'},
          'datetime': {'en': 'Time', 'ru': 'Время'},
          'target': {'en': 'Actual power consumption, MWh', 'ru': 'Фактическое потребление электроэнергии, МВт*ч'},
-         'subheader_model': {'en': 'About the model', 'ru': 'О модели'}}
-
+         'subheader_model': {'en': 'About the model', 'ru': 'О модели'},
+         'model_desc': {'en': 'In this competition we were to solve a regression task on tabular data. Expectedly top rating positions were taken by various realizations of gradient boosting. However throughout our experiments it occured that a two models ensemble performed better than just a boosting. So first we fitted an l1-regulirized linear regression for its nulifying weights of insignificant features as well as linear models capacity to extrapolate. Then to achieve better quality of prediction we counted the models error and fitted gradient boosting on it. You can read about fitting and testing processes in more detail [here](%s)',
+                      'ru': 'В этом соревновании мы работали над задачей регрессии на табличных данных. Ожидаемо все лучшие позиции в рейтинге заняли различные реализации градиентного бустинга. Однако в ходе наших экспериментов лучше, чем просто бустинг показал себя ансамбль из двух моделей. Первым этапом мы обучили линейную регрессию с регуляризацией l1, ради зануления весов незначимых признаков, а также способности линейных моделей к экстраполяции. Затем для повышения точности рассчитали ошибку этой модели и на ней обучили градиентный бустинг. Подробнее об обучении и тестировании вы можете почитать [здесь](%s)'},
+         'subheader_features': {'en': 'About the features', 'ru': 'О признаках'},
+         'features_desc': {'en': 'Since the forecast quality in this project depended mainly on successful feature engineering, let us have a look at the final feature importances according to the models estimate (both models: linear regression and gradient boosting). Please find below just the top 10 of the features',
+                           'ru': 'Поскольку успех предсказания в этой задаче зависел главным образом от генерации информативных признаков, рассмотрим итоговую важность признаков по оценкам моделей (обеих, линейной регрессии и бустинга). Ограничимся топ-10 признаками'},
+         'feat_imp': {'en': 'Feature importance', 'ru': 'Важность признаков'},
+         'feature': {'en': 'Feature', 'ru': 'Признак'},
+         'importance': {'en': 'Weighted importance', 'ru': 'Взвешенная важность'},
+         'feat_list': {'en': """
+* **target_lag_24** – target value exactly 24 hours (1 day) ago
+* **yesterday_median_target** – target median for preceding day (from 0 a.m. to 11 p.m.)
+* **target_lag_168** – target value exactly 168 hours (7 days) ago
+* **yesterday_mean_temp** – mean temperature for preceding day (from 0 a.m. to 11 p.m.)
+* **target_lag_144** – target value exactly 144 hours (6 days) ago
+* **day** – calendar day, i.e. the day's number in a month
+* **temp_pred** – temperature forecast for current hour
+* **dow** – day of week (0 for Monday, 6 for Sunday)
+* **target_lag_96** – target value exactly 96 hours (4 days) ago
+* **time** – time, i.e. number of the hour in a day
+                          """,
+                          'ru': """
+* **target_lag_24** – значение целевого признака ровно 24 часа (1 сутки) назад
+* **yesterday_median_target** – медиана целевого признака за предшествующие сутки (с 0 по 23 час)
+* **target_lag_168** – значение целевого признака ровно 168 часов (7 суток) назад
+* **yesterday_mean_temp** – средняя температура за предшествующие сутки (с 0 по 23 час)
+* **target_lag_144** – значение целевого признака ровно 144 часа (6 суток) назад
+* **day** – число по календарю (номер дня в месяце)
+* **temp_pred** – прогноз температуры на текущий час
+* **dow** – день недели (0 - понедельник, 6 - воскресенье)
+* **target_lag_96** – значение целевого признака ровно 96 часов (4 суток) назад
+* **time** – время (номер часа в сутках)
+                          """}
+         }
 
 #add a sidebar to select pages
 with st.sidebar:
@@ -108,3 +141,19 @@ with body:
     st.plotly_chart(fig)
 
     st.subheader(text['subheader_model'][st.session_state['language']])
+    url = "https://github.com/maria-bichun/power_consumption_forecast_app/blob/main/notebook/two_stage_model_fitting.ipynb"
+    st.markdown(text['model_desc'][st.session_state['language']] % url)
+    st.subheader(text['subheader_features'][st.session_state['language']])
+    st.write(text['features_desc'][st.session_state['language']])
+
+    imp = pd.DataFrame({'feature': ['target_lag_24', 'yesterday_median_target', 'target_lag_168', 'yesterday_mean_temp', 'target_lag_144',
+                                   'day', 'temp_pred', 'dow', 'target_lag_96', 'time'], 
+                                   'importance': [24.7588, 7.0092, 6.0116, 5.7363, 5.7204, 5.1386, 4.9217, 4.6008, 3.6869, 3.5399]})
+    fig = px.bar(imp, x="importance", y="feature", orientation='h',
+                 title=text['feat_imp'][st.session_state['language']], 
+                 labels={'feature': text['feature'][st.session_state['language']], 'importance': text['importance'][st.session_state['language']]},
+             hover_data=["importance"],
+             height=400)
+    fig.update_layout(yaxis=dict(autorange='reversed'))
+    st.plotly_chart(fig)
+    st.markdown(text['feat_list'][st.session_state['language']])
