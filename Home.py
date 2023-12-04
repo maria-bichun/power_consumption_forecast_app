@@ -61,15 +61,15 @@ with st.sidebar:
 
     # Specify what pages should be shown in the sidebar, and what their titles 
     # and icons should be
-    # show_pages(
-    #     [
-    #         Page("Home.py", text['menu_home'][st.session_state['language']], "🏠"),
-    #         Page("pages/1_Forecast.py", text['menu_forecast'][st.session_state['language']], ":chart_with_upwards_trend:"),
-    #         Page("pages/2_Archive.py", text['menu_archive'][st.session_state['language']], ":books:"),
-    #         Page("pages/3_About.py", text['menu_about'][st.session_state['language']], ":information_source:")
-    #     ]
-    # )
-show_pages_from_config()
+    show_pages(
+        [
+            Page("Home.py", text['menu_home'][st.session_state['language']], "🏠"),
+            Page("pages/1_Forecast.py", text['menu_forecast'][st.session_state['language']], ":chart_with_upwards_trend:"),
+            Page("pages/2_Archive.py", text['menu_archive'][st.session_state['language']], ":books:"),
+            Page("pages/3_About.py", text['menu_about'][st.session_state['language']], ":information_source:")
+        ]
+    )
+# show_pages_from_config()
 # if st.session_state['language'] == 'ru':
 #     hide_pages(["Forecast"])
 # if st.session_state['language'] == 'en':
