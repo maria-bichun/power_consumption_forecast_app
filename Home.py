@@ -45,18 +45,6 @@ if 'pcp' not in st.session_state:
 
 #add a sidebar to select pages
 with st.sidebar:
-    # Specify what pages should be shown in the sidebar, and what their titles 
-    # and icons should be
-    show_pages(
-        [
-            Page("Home.py", text['menu_home'][st.session_state['language']], "🏠"),
-            Page("pages/1_Forecast.py", text['menu_forecast'][st.session_state['language']], ":chart_with_upwards_trend:"),
-            Page("pages/2_Archive.py", text['menu_archive'][st.session_state['language']], ":books:"),
-            Page("pages/3_About.py", text['menu_about'][st.session_state['language']], ":information_source:")
-        ]
-    )
-    add_page_title()
-
     images = []
     for file in ["images/russia.png", "images/united-kingdom.png"]:
         with open(file, "rb") as image:
@@ -72,6 +60,18 @@ with st.sidebar:
         st.session_state['language'] = 'en'
     if clicked == 0:
         st.session_state['language'] = 'ru'
+
+    # Specify what pages should be shown in the sidebar, and what their titles 
+    # and icons should be
+    show_pages(
+        [
+            Page("Home.py", text['menu_home'][st.session_state['language']], "🏠"),
+            Page("pages/1_Forecast.py", text['menu_forecast'][st.session_state['language']], ":chart_with_upwards_trend:"),
+            Page("pages/2_Archive.py", text['menu_archive'][st.session_state['language']], ":books:"),
+            Page("pages/3_About.py", text['menu_about'][st.session_state['language']], ":information_source:")
+        ]
+    )
+    add_page_title()
 
 
 # Add header
